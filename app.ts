@@ -56,7 +56,7 @@ app.post('/api/auth/register', (req, res) => {
 
 process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-        console.log('Mongoose connection disconnected through app termination');
+        console.log('Disconnected from MongoDB');
         process.exit(0);
     });
 });
