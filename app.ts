@@ -29,7 +29,7 @@ app.post('/api/auth/login', (req, res) => {
         .then(user => {
             const pass = bcrypt.compareSync(password, user.password);
             if (pass) {
-                accessToken = jwt.sign({id: user._id}, 'secret');
+                accessToken = jwt.sign({id: user._id}, process.env.SECRET_KEY);
                 res.json({
                     username: user.username,
                     accessToken});
