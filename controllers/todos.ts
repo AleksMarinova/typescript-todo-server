@@ -4,13 +4,6 @@ const user = require('../User');
 
 const getTodos =async (req, res, next) => {
     const {username, token} = req.body;
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    console.log(decoded);
-    if(!decoded){
-        res.status(401).json({
-            message: 'Invalid token'
-        });
-    }
     const userInDatabase = await user.findOne({username: username});
     const todos = userInDatabase.todos;
     res.status(200).json({todos});
@@ -18,12 +11,6 @@ const getTodos =async (req, res, next) => {
 
 const addTodo = async (req, res, next) => {
     const {username, token, todo} = req.body;
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    if(!decoded){
-        res.status(401).json({
-            message: 'Invalid token'
-        });
-    }
     const userInDatabase = await user.findOne({username: username});
     userInDatabase.todos.push(todo);
     await userInDatabase.save();
@@ -32,12 +19,6 @@ const addTodo = async (req, res, next) => {
 
 const deleteTodo = async(req, res, next) => {
     const {username, token, todo} = req.body;
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    if(!decoded){
-        res.status(401).json({
-            message: 'Invalid token'
-        });
-    }
     const userInDatabase = await user.findOne({username: username});
     const todos = userInDatabase.todos;
     const index = todos.indexOf(todo);
@@ -48,12 +29,6 @@ const deleteTodo = async(req, res, next) => {
 
 const updateTodo = async (req, res, next) => {
     const {username, token, index, newTodo} = req.body;
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    if(!decoded){
-        res.status(401).json({
-            message: 'Invalid token'
-        });
-    }
     const userInDatabase = await user.findOne({username: username});
     const todos = userInDatabase.todos;
     todos[index] = newTodo;

@@ -10,6 +10,7 @@ const user = require('./User');
 const jwt = require('jsonwebtoken');
 const authRoutes = require('./routes/auth');
 const todosRoutes = require('./routes/todos');
+import authenticateToken from "./utilities";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,7 +27,7 @@ mongoose.connect(DB_URL)
 
 
 app.use('/api/auth', authRoutes);
-app.use('/api/todos', todosRoutes);
+app.use('/api/todos', authenticateToken, todosRoutes);
 
 
 process.on('SIGINT', () => {
