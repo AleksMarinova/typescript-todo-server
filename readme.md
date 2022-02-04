@@ -1,1 +1,1 @@
-server for a typescript todo app
+server for a typescript todo app with jwt, bcrypt, and mongoose
